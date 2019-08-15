@@ -1,0 +1,50 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block head %}
+	<title>Mes Favoris</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'favorites/favorites.css' %}">
+{% endblock %}
+
+
+{% block content %}
+
+<header class="masthead text-center text-white d-flex">
+    <div class="container my-auto">
+      <div class="row">
+      	<div class="col-lg-10 mx-auto item">   		
+        </div>
+      </div>
+  </div>
+</header>
+<div class="container">
+	<div class="row">
+		{% if favorites %}
+			{% for product in favorites %}
+			<div class="col-lg-4">
+				<a href="{% url 'product' id=product.id %}">
+					<img class="image-product" src="{{ product.image_url }}" alt="image {{ product.product_name }}">
+				</a>
+				<div class="macaron">
+					{% if product.nutriscore == 'a' %}
+						<img src="{% static "ersatz/img/macaron_A.png" %}" class="macaron image-product" alt="nutriscore A">
+					{% elif product.nutriscore == 'b' %}
+						<img src="{% static "ersatz/img/macaron_B.png" %}" class="macaron image-product" alt="nutriscore B">
+					{% elif product.nutriscore == 'c' %}
+						<img src="{% static "ersatz/img/macaron_C.png" %}" class="macaron image-product" alt="nutriscore C">
+					{% elif product.nutriscore == 'd' %}
+						<img src="{% static "ersatz/img/macaron_D.png" %}" class="macaron image-product" alt="nutriscore D">
+					{% elif product.nutriscore == 'e' %}
+						<img src="{% static "ersatz/img/macaron_E.png" %}" class="macaron image-product" alt="nutriscore E">
+					{% endif %}
+				</div>
+				<p class="product-name" id="{{ product.product_name }}">{{ product.product_name }}</p>
+		</div>    	
+    	{% endfor %}
+
+		{% else %}
+			<p class="no-fav">Vous n'avez enregistré aucun favori pour le moment.</p>
+		{% endif %}
+	</div>
+</div>
+{% endblock %}

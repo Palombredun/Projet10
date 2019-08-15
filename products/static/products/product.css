@@ -1,0 +1,44 @@
+header.masthead {
+  position: relative;
+  padding-top: 10rem;
+  padding-bottom: calc(10rem - 56px);
+  background-image: url("img/header.jpg");
+  background-position: center center;
+  background-size: cover;
+}
+
+header.masthead p {
+  font-weight: 900;
+  font-size: 1em;
+}
+
+.photo-product {
+	margin-top: -50px;
+	height: 200px;
+	width: auto;
+}
+
+.nutriscore {
+	padding-top: 30px;
+}
+
+.data-title {
+  font-size: 1.5em;
+}
+
+.datas-100 {
+	padding-top: 30px;
+}
+
+.url-off {
+  font-size: 1.5em;
+  padding: 1em;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #c45525;
+}
+
+.wrapper-url {
+  padding-top: 5em;
+  padding-bottom: 10em;
+}

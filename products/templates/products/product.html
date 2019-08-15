@@ -1,0 +1,100 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block head %}
+	<title>Produit</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'products/product.css' %}">
+{% endblock %}
+
+
+{% block content %}
+<header class="masthead text-center text-white d-flex">
+    <div class="container my-auto">
+      <div class="row">
+        <div class="col-lg-10 mx-auto item">
+          <img src="{{ product.image_url }}" class="photo-product" alt="photo {{ product.product_name }}">
+        </div>
+      </div>
+      <div class="row">
+      	<div class="col-lg-10 mx-auto item">
+      		<p>{{ product.product_name }}</p>      		
+        </div>
+      </div>
+  </div>
+</header>
+<div class="container">
+	<div class="row">
+    <div class="col-lg-4">
+		  {% if product.nutriscore == 'a' %}
+        <img src="{% static "products/img/nutriscore_A.png" %}" class="nutriscore" alt="nutriscore-A">
+      {% elif product.nutriscore == 'b' %}
+        <img src="{% static "products/img/nutriscore_B.png" %}" class="nutriscore" alt="nutriscore-B">
+      {% elif product.nutriscore == 'c' %}
+        <img src="{% static "products/img/nutriscore_C.png" %}" class="nutriscore" alt="nutriscore-C">
+      {% elif product.nutriscore == 'd' %}
+        <img src="{% static "products/img/nutriscore_D.png" %}" class="nutriscore" alt="nutriscore-D">
+      {% elif product.nutriscore == 'e' %}
+        <img src="{% static "products/img/nutriscore_E.png" %}" class="nutriscore" alt="nutriscore-E">
+      {% endif %}
+    </div>
+
+    <div class="col-lg-4 offset-lg-4 datas-100">
+      <p class="data-title"><strong>Données nutritionnelles pour 100g :</strong></p>
+      <ul>
+        {% if product.energy_100g == -1.0 %}
+          <li>Calories : NC</li>
+        {% else %}
+          <li>Calories : {{ product.energy_100g }}g</li>
+        {% endif %}
+
+        {% if product.fat_100g == -1.0 %}
+          <li>Lipides : NC</li>
+        {% else %}
+          <li>Lipides : {{ product.fat_100g }}g</li>
+        {% endif %}
+
+        {% if product.saturated_fats_100g == -1.0 %}
+          <li>Acides gras saturés : NC
+        {% else %}
+          <li>Acides gras saturés : {{ product.saturated_fats_100g }}g</li>
+        {% endif %}
+
+        {% if product.carbohydrates_100g == -1.0 %}
+          <li>Glucides : NC</li>
+        {% else %}
+          <li>Glucides : {{ product.carbohydrates_100g }}g</li>
+        {% endif %}
+
+        {% if product.sugars_100g == -1.0 %}
+          <li>Dont sucre : NC</li>
+        {% else %}
+          <li>Dont sucre : {{ product.sugars_100g }}g</li>
+        {% endif %}
+
+        {% if product.fibers_100g == -1.0 %}
+          <li>Fibres : NC</li>
+        {% else %}
+          <li>Fibres : {{ product.fibers_100g }}g</li>
+        {% endif %}
+
+        {% if product.proteins_100g == -1.0 %}
+          <li>Protéines : NC</li>
+        {% else %}
+          <li>Protéines :{{ product.proteins_100g }}g</li>
+        {% endif %}
+
+        {% if product.salt_100g == -1.0 %}
+          <li>Sel : NC</li>
+        {% else %}
+          <li>Sel : {{ product.salt_100g }}g</li>
+        {% endif %}
+      </ul>
+    </div>
+	</div> <!-- row -->
+  <div class="row wrapper-url">
+    <div class="col-lg-6 offset-lg-3">
+      <a href="{{ product.product_url }}" target="_blank" class="url-off"><strong>Voir la fiche d'OpenFood Facts</strong></a>
+    </div>
+  </div>
+</div>
+{% endblock %}

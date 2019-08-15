@@ -1,0 +1,79 @@
+header.masthead {
+  position: relative;
+  padding-top: 10rem;
+  padding-bottom: calc(10rem - 56px);
+  background-image: url("img/header.jpg");
+  background-position: center center;
+  background-size: cover;
+}
+
+header.masthead p {
+  font-weight: 900;
+  font-size: 1em;
+}
+
+.photo-product {
+  margin-top: -50px;
+  height: 200px;
+  width: auto;
+}
+
+.image-search {
+  height: 150px;
+  width: auto;
+  position: absolute;
+  bottom: -75px;
+}
+
+.image-product {
+	margin-top: 40px;
+	margin-bottom: -60px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+
+	height: 200px;
+	width: auto;
+	max-width: 100px;
+
+	border-radius: 5%;
+}
+
+.product-name {
+	text-align: center;
+	margin-top: -25px;
+}
+
+.replacement {
+	padding: 1em;
+	font-size: 1.5em;
+	text-align: center;
+}
+
+.macaron {
+  position: relative;
+  top: -6.5em;
+  right: -6.5em;
+  
+  height: 50px;
+  width: 50px;
+}
+
+form{
+  width:50%; 
+  margin:0 auto;
+	margin-top: -1.5em;
+}
+
+.btn-light {
+  margin: 5px;
+}
+
+.fa-save {
+  width: 25px;
+  height: 25px;
+}
+
+.products {
+  margin-bottom: 50px;
+}

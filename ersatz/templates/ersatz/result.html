@@ -1,0 +1,72 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block head %}
+	<title>Recherche</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'ersatz/result.css' %}">
+{% endblock %}
+
+
+{% block content %}
+<header class="masthead text-center text-white d-flex">
+    <div class="container my-auto">
+      <div class="row">
+        <div class="col-lg-10 mx-auto item">
+          {% if products %}
+          	<img src="{{ search.image_url }}" class="photo-product" alt="photo {{ search.product_name }}">
+          	{% endif %}
+        </div>
+      </div>
+      <div class="row">
+      	<div class="col-lg-10 mx-auto item">
+      		<p class="query-name">{{ search.product_name }}</p>      		
+        </div>
+      </div>
+  </div>
+</header>
+<div class="container products">
+	{% if user.is_authenticated %}
+		<p class="replacement">Vous pouvez remplacer cet aliment par :</p>
+	{% else %}
+		<p class="replacement">Vous devez avoir un compte pour sauvegarder des aliments</p>
+	{% endif %}
+	<div class="row">
+		{% if products %}
+			{% for product in products %}
+			<div class="col-lg-4">
+				<a href="{% url 'product' id=product.id %}">
+					<img class="image-product" src="{{ product.image_url }}" alt="image {{ product.product_name }}">
+				</a>
+				<div class="macaron">
+					{% if product.nutriscore == 'a' %}
+						<img src="{% static "ersatz/img/macaron_A.png" %}" class="macaron image-product" alt="nutriscore A">
+					{% elif product.nutriscore == 'b' %}
+						<img src="{% static "ersatz/img/macaron_B.png" %}" class="macaron image-product" alt="nutriscore B">
+					{% elif product.nutriscore == 'c' %}
+						<img src="{% static "ersatz/img/macaron_C.png" %}" class="macaron image-product" alt="nutriscore C">
+					{% elif product.nutriscore == 'd' %}
+						<img src="{% static "ersatz/img/macaron_D.png" %}" class="macaron image-product" alt="nutriscore D">
+					{% elif product.nutriscore == 'e' %}
+						<img src="{% static "ersatz/img/macaron_E.png" %}" class="macaron image-product" alt="nutriscore E">
+					{% endif %}
+				</div>
+				<p class="product-name">{{ product.product_name }}</p>
+
+				{% if user.is_authenticated %}				
+                	<form method="post" action="{% url 'favorites' %}">
+                		{% csrf_token %}
+                		<input type="hidden" name="id_product" value="{{ product.id }}">
+                		<button type="submit" class="btn btn-light" id="{{ product.product_name }}">
+                			<i class="far fa-save"></i>
+                			Sauvegarder
+                		</button>
+                	</form>
+                {% endif %}
+			</div>    	
+    	{% endfor %}
+
+		{% else %}
+			<p>Aucun produit n'a été trouvé.</p>
+		{% endif %}
+	</div>
+{% endblock %}
