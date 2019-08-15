@@ -1,0 +1,178 @@
+/*!
+ * Start Bootstrap - Creative v5.0.1 (https://startbootstrap.com/template-overviews/creative)
+ * Copyright 2013-2018 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-creative/blob/master/LICENSE)
+ */
+
+body,
+html {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  /*font-family: 'Merriweather', 'Helvetica Neue', Arial, sans-serif;*/
+  font-family: "Scope One", 'Helvetica Neue', Arial,sans-serif;
+}
+
+hr {
+  max-width: 50px;
+  border-width: 3px;
+  border-color: #86ebe6;
+}
+
+hr.light {
+  border-color: #fff;
+}
+
+a {
+  color: #de9440;
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
+}
+
+a:hover {
+  color: #c45525;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+}
+
+.bg-primary {
+  background-color: #c45525 !important;
+}
+/*
+.bg-dark {
+  background-color: #212529 !important;
+}
+*/
+.text-faded {
+  color: #86ebe6;
+}
+
+section {
+  padding: 8rem 0;
+}
+
+.section-heading {
+  margin-top: 0;
+}
+
+.about {
+  color: #e8a75d;
+}
+
+.logo_pur_beurre {
+  height: 50px;
+  width: 50px;
+}
+
+#logo-colette {
+  height: 250px;
+  width: 100px;
+}
+
+#logo-remy {
+  height: 250px;
+  width: 115px;
+}
+/*
+#hr-about {
+  border-color: #e8a75d;
+}
+*/
+.contact {
+  color: #de9440;
+}
+
+#hr-contact {
+  border-color: #c45525;
+}
+
+
+header.masthead {
+  padding-top: 10rem;
+  padding-bottom: calc(10rem - 56px);
+  background-image: url("img/header_flou.jpg");
+  background-position: center center;
+  background-size: cover;
+}
+
+header.masthead hr {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+header.masthead h1 {
+  font-size: 2rem;
+  color: #86ebe6;
+}
+
+header.masthead p {
+  font-weight: 300;
+}
+
+@media (min-width: 768px) {
+  header.masthead p {
+    font-size: 1.15rem;
+  }
+}
+
+@media (min-width: 992px) {
+  header.masthead {
+    height: 100vh;
+    min-height: 650px;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  header.masthead h1 {
+    font-size: 3rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  header.masthead h1 {
+    font-size: 4rem;
+  }
+}
+
+.text-primary {
+  color: #E8A75d !important;
+}
+
+.btn {
+  font-weight: 700;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 300px;
+  font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.btn-xl {
+  padding: 1rem 2rem;
+}
+
+.btn-primary {
+  background-color: #c45525;
+  border-color: #c45525;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+  color: #fff;
+  background-color: #ee4b28 !important;
+}
+
+.btn-primary:active, .btn-primary:focus {
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(240, 95, 64, 0.5) !important;
+  box-shadow: 0 0 0 0.2rem rgba(240, 95, 64, 0.5) !important;
+}

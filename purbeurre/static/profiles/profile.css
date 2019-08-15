@@ -1,0 +1,31 @@
+header.masthead {
+  padding-top: 10rem;
+  padding-bottom: calc(10rem - 56px);
+  background-image: url("img/header.jpg");
+  background-position: center center;
+  background-size: cover;
+}
+
+header.masthead hr {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+header.masthead h1 {
+  font-size: 2rem;
+  color: #86ebe6;
+}
+
+header.masthead p {
+  font-weight: 900;
+  font-size: 50px;
+}
+
+.product-name {
+  text-align: center;
+}
+
+.email {
+  padding-top: 5em;
+  padding-bottom: 5em;
+}
