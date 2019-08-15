@@ -1,0 +1,28 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+  <head>
+	{% block head %}
+	<title>Profil</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'profiles/profile.css' %}">
+	{% endblock %}
+</head>
+
+{% block content %}
+<header class="masthead text-center text-white d-flex">
+    <div class="container my-auto">
+      <div class="row">
+      	<div class="col-lg-10 mx-auto username">
+      		<p>{{ user.username }}</p>
+        </div>
+      </div>
+  </div>
+</header>
+<div class="container">
+	<div class="row">
+		<div class="col-lg-6 mx-auto email">
+    	  	<p class="text-center border-email">{{ user.email }}</p>
+    	</div>
+    </div>
+</div>
+{% endblock %}

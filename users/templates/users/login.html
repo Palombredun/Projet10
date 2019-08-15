@@ -1,0 +1,39 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+<head>
+	{% block head %}
+  <title>Connexion</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'users/login.css' %}">
+	{% endblock %}
+</head>
+
+
+{% block content %}
+<header class="masthead text-center text-white d-flex">
+    <div class="container my-auto">
+      <div class="row">
+        <div class="col-lg-10 mx-auto">
+          <p>{{ user.username }}</p>
+        </div>
+      </div>
+  </div>
+</header>
+<div class="container">
+
+  <div class="row">
+    <h2>Connexion :</h2>
+  </div>
+  <div class="row">
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-xl btn-primary">Connexion</button>
+    </form>
+  </div>
+  <div class="row">
+    <span class="signup">Pas encore de compte ? <a href="{% url 'signup' %}" class="signup-link">S'inscrire</a></span>
+  </div>
+</div>
+
+{% endblock %}
