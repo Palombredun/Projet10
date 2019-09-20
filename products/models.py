@@ -3,8 +3,9 @@ from django.contrib.auth.models import User
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=200)
-    parent = models.IntegerField(null=True)
+    top_category = models.CharField(max_length=200, default='')
+    middle_category = models.CharField(max_length=200, default='')
+    bottom_category = models.CharField(max_length=200, default='')
 
 
 class Product(models.Model):

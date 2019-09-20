@@ -20,11 +20,10 @@ class Command(BaseCommand):
                 row['nutrition_grade_fr']:
     
                     current_categories = row['categories'].split(', ')[:3]
-                    if current_categories not in categories and \
-                    len(current_categories) == 3:
+                    if len(current_categories) == 3 and \
+                    current_categories not in categories:
 
                         categories.append(current_categories)
-
                         products.append([
                             row['product_name'],
                             row['nutrition_grade_fr'],
@@ -38,8 +37,7 @@ class Command(BaseCommand):
                             row['sugars_100g'],
                             row['fiber_100g'],
                             row['proteins_100g'],
-                            ]
-                            )
+                            ])
 
             for category in categories:
                 if category[0] not in Category.objects.get(name=category[0]):
@@ -55,7 +53,7 @@ class Command(BaseCommand):
     
                 for product in products:
                     if product['category_name'] == category:
-                        new_product = Productobjects.create(
+                        new_product = Product.objects.create(
                             product_name=product['product_name'],
                             nutriscore=product['nutriscore'],
                             image_url=product['image_url'],
@@ -71,4 +69,3 @@ class Command(BaseCommand):
                             proteins_100g=product['proteins_100g'],
                             salt_100g=product['salt_100g'],
                             )
-                        #new_product.save() 
