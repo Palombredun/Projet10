@@ -8,6 +8,8 @@ class Command(BaseCommand):
     help = "Update the database with the csv contained in the directory products/data"
 
     def handle(self, *args, **kwargs):
+        all_products = Product.objects.all()
+
         for csv_file in os.listdir('products/data'):
             if "csv" in csv_file:
                 file = "products/data/" + csv_file
@@ -15,7 +17,8 @@ class Command(BaseCommand):
                     reader = csv.DictReader(f, delimiter="\t")
                     for row in reader:
                         if row['product_name_fr'] and \
-                        ['categories'] and \
-                        row['image_url'] and \
-                        row['nutrition_grade_fr']:
-                            
+                            row['categories'] and \
+                            row['image_url'] and \
+                            row['nutrition_grade_fr']:
+                            # vérifier si produit pas dans la base
+                            # sinon, l'insérer dedans

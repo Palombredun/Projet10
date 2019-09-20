@@ -1,15 +1,14 @@
-import json
 import csv
 
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 from products.models import Category, Product
 
 class Command(BaseCommand):
     help = "Populate the database with the products previously downloaded."
 
     def handle(self, *args, **options):
-        products = []
-        categories = []
+        products_created = []
+        categories_created = set([])
         
         with open('products/management/commands/openfoodfacts.csv', newline='') as csvfile:
             reader = csv.DictReader(csvfile, delimiter='\t')
@@ -19,53 +18,73 @@ class Command(BaseCommand):
                 row['image_url'] and \
                 row['nutrition_grade_fr']:
     
-                    current_categories = row['categories'].split(', ')[:3]
-                    if len(current_categories) == 3 and \
-                    current_categories not in categories:
+                    current_category = tuple(row['categories'].split(', ')[:3])
+                    if len(current_category) == 3 and\
+                        row['product_name'] not in products_created:
 
-                        categories.append(current_categories)
-                        products.append([
-                            row['product_name'],
-                            row['nutrition_grade_fr'],
-                            row['image_url'],
-                            row['url'],
-                            row['purchase_places'],
-                            row['energy_100g'],
-                            row['fat_100g'],
-                            row['saturated-fat_100g'],
-                            row['carbohydrates_100g'],
-                            row['sugars_100g'],
-                            row['fiber_100g'],
-                            row['proteins_100g'],
-                            ])
+                        categories_created.add(current_category)
+                        new_category = Category.objects.create(
+                            top_category=current_category[0],
+                            middle_category=current_category[1],
+                            bottom_category=current_category[2]
+                            )
 
-            for category in categories:
-                if category[0] not in Category.objects.get(name=category[0]):
-                    cat = Category.objects.create(name=category[0], parent=null)
-                elif category[1] not in Category.objects.get(name=category[1]):
-                    id_parent = Category.objects.get(name=category[0]).id
-                    sub_cat = Category.objects.create(name=category[1], parent=id_parent)
-                elif category[2] not in Category.objects.get(name=category[2]):
-                    id_parent = Category.objects.get(name=category[1]).id
-                    sub_sub_cat = Category.objects.create(name=category[2], parent=id_parent)
-                else:
-                    sub_sub_cat = Category.objects.get(name=category[2])
-    
-                for product in products:
-                    if product['category_name'] == category:
+                        category_reference = Category.objects.get(
+                            top_category=current_category[0],
+                            middle_category=current_category[1],
+                            bottom_category=current_category[2]
+                            )
+                        products_created.append(row['product_name'])
+                        try:
+                            purchase_places = row['purchase_places']
+                        except:
+                            purchase_places = ''
+                        try:
+                            energy_100g = row['energy_100g']
+                        except:
+                            energy_100g = -1
+                        try:
+                            fat_100g = row['fat_100g']
+                        except:
+                            fat_100g = -1
+                        try:
+                            saturated_fats_100g = row['saturated-fat_100g']
+                        except:
+                            saturated_fats_100g = -1
+                        try:
+                            carbohydrates_100g = row['carbohydrates_100g']
+                        except:
+                            carbohydrates_100g = -1
+                        try:
+                            sugars_100g = row['sugars_100g']
+                        except:
+                            sugars_100g = -1
+                        try:
+                            fiber_100g = row['fiber_100g']
+                        except:
+                            fiber_100g = -1
+                        try:
+                            salt_100g = float(row['salt_100g'])
+                        except:
+                            salt_100g = -1
+                        try:
+                            proteins_100g = row['proteins_100g']
+                        except:
+                            proteins_100g = -1
+
                         new_product = Product.objects.create(
-                            product_name=product['product_name'],
-                            nutriscore=product['nutriscore'],
-                            image_url=product['image_url'],
-                            product_url = product['product_url'],
-                            category=sub_sub_cat,
-                            purchase_places=product['purchase_place'],
-                            energy_100g=product['energy_100g'],
-                            fat_100g=product['fat_100g'],
-                            saturated_fats_100g=product['saturated_fat_100g'],
-                            carbohydrates_100g=product['carbohydrates_100g'],
-                            sugars_100g=product['sugars_100g'],
-                            fibers_100g=product['fiber_100g'],
-                            proteins_100g=product['proteins_100g'],
-                            salt_100g=product['salt_100g'],
+                            product_name=row['product_name'],
+                            nutriscore=row['nutrition_grade_fr'],
+                            image_url=row['image_url'],
+                            product_url = row['url'],
+                            category=category_reference,
+                            purchase_places=purchase_places,
+                            energy_100g=energy_100g,
+                            fat_100g=fat_100g,
+                            saturated_fats_100g=saturated_fats_100g,
+                            carbohydrates_100g=carbohydrates_100g,
+                            sugars_100g=sugars_100g,
+                            fibers_100g=fiber_100g,
+                            proteins_100g=proteins_100g,
+                            salt_100g=salt_100g,
                             )
