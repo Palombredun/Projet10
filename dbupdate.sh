@@ -1,28 +1,25 @@
 #!/bin/bash
 
-echo "toto"
+# download the filenames containing the updates to the db
 python update/deltas_urls.py
-echo "titi"
 
 now=$(date +"%Y-%m-%d")
 
 filename="$now.txt"
 base_url="https://static.openfoodfacts.org/data/delta/"
 
-# download each file contained in the 
-n=1
+# download each csv contained in the text file
 cd update/data
 while read line; 
 do
+	echo $url
 	url="$base_url$line"
-	echo "$url"
 	wget "$url"
-	echo "$n"
-	n=$((n+1))
 done < $filename
 
-gunzip \*.gz
+gunzip *.gz
 cd ../..
 
-python manage.py update_db.py
-rm update/data/*.csv
+# 
+python manage.py update_db
+rm /home/baptiste/Documents/Openclassrooms/Projets_OC/Projet10/update/data/*.json
