@@ -14,8 +14,17 @@ import os
 
 import purbeurre.production as prod
 
+#import sentry_sdk
+#from sentry_sdk.integrations.django import DjangoIntegration
+#
+#sentry_sdk.init(
+#    dsn="https://171e435c12d049e5839a456a77c3c856@sentry.io/1770395",
+#    integrations=[DjangoIntegration()]
+#)
+
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-#BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production

@@ -9,15 +9,18 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         products_created = []
         categories_created = set([])
-        
+
         with open('products/management/commands/openfoodfacts.csv', newline='') as csvfile:
             reader = csv.DictReader(csvfile, delimiter='\t')
             for row in reader:
-                if row['product_name'] and \
-                row['categories'] and \
-                row['image_url'] and \
-                row['nutrition_grade_fr']:
-    
+                if (row.get('product_name') and
+                row.get('categories') and
+                row.get('image_url') and
+                row.get('nutrition_grade_fr')):
+                    if (len(row['url']) > 250 or
+                    len(row['image_url']) > 250 or
+                    len(row['nutrition_grade_fr']) > 1):
+                        pass
                     current_category = tuple(row['categories'].split(', ')[:3])
 
                     if len(current_category) == 3 and\
@@ -77,8 +80,19 @@ class Command(BaseCommand):
                         except:
                             salt_100g = -1.
 
+                        print('product :', row['product_name'])
+                        print('nutriscore :', row['nutrition_grade_fr'])
+                        print('energy :', energy_100g)
+                        print('fat :', fat_100g)
+                        print('saturated fats :', saturated_fats_100g)
+                        print('carbohydrates :', carbohydrates_100g)
+                        print('sugars :', sugars_100g)
+                        print('fibers :', fiber_100g)
+                        print('proteins : ', proteins_100g)
+                        print('salt :', salt_100g)
+
                         new_product = Product.objects.create(
-                            product_name=row['product_name'],
+                            product_name=row['product_name'][:250],
                             nutriscore=row['nutrition_grade_fr'],
                             image_url=row['image_url'],
                             product_url = row['url'],
