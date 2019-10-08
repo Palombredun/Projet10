@@ -1,5 +1,8 @@
 #!/bin/bash
 
+cd /home/baptiste/Projet10
+source venv/bin/activate
+
 # download the filenames containing the updates to the db
 python update/deltas_urls.py
 
@@ -20,6 +23,11 @@ done < $filename
 gunzip *.gz
 cd ../..
 
-# 
+# update the database 
 python manage.py update_db
+
+# remove json files since they're now useless
+# we just keep the .txt files : they contain the urls of the updates
 rm /home/baptiste/Documents/Openclassrooms/Projets_OC/Projet10/update/data/*.json
+deactivate
+
