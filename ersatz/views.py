@@ -13,32 +13,41 @@ def search(request):
     """
     if "query" in request.GET:
         query = request.GET["query"]
-        products = Product.objects.filter(product_name__icontains=query)
+        products = Product.objects.filter(
+            product_name__icontains=query)
 
         if products.count() == 0:
             return render(request, "ersatz/result.html")
         else:
-            foo = []
+            potential_replacements = []
             for product in products:
                 # find the best match for the query (highest ratio)
-                foo.append(
+                potential_replacements.append(
                     (
                         product,
                         SequenceMatcher(None, query, product.product_name).ratio(),
                     )
                 )
-            foo.sort(key=lambda x: x[1])
+            potential_replacements.sort(key=lambda x: x[1])
+            product_to_replace = potential_replacements[-1][0]
 
-            product_to_replace = foo[-1][0]
 
-            simili_products = Product.objects.filter(
-                category=product_to_replace.category
+            replacements = Product.objects.filter(
+                bottom_category=product_to_replace.bottom_category
             ).order_by("nutriscore")
+            if len(replacements) < 3:
+                replacements = Product.objects.filter(
+                    middle_category=product_to_replace.middle_category
+                ).order_by("nutriscore")
+            else:
+                replacements = Product.objects.filter(
+                    top_category=product_to_replace.top_category
+                ).order_by("nutriscore")
 
             ersatz = []
-            for prod in simili_products:
-                if prod.nutriscore < product_to_replace.nutriscore:
-                    ersatz.append(prod)
+            for product in replacements:
+                if product.nutriscore < product_to_replace.nutriscore:
+                    ersatz.append(product)
 
             # return only the top 6 of the products
             return render(
